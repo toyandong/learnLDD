@@ -1,0 +1,1 @@
+cmd_/home/rip/Documents/ldd3-examples-3.x-master/usb/built-in.o :=  rm -f /home/rip/Documents/ldd3-examples-3.x-master/usb/built-in.o; ar rcsD /home/rip/Documents/ldd3-examples-3.x-master/usb/built-in.o

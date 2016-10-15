@@ -1,0 +1,1 @@
+cmd_/home/rip/Documents/ldd3-examples-3.x-master/usb/usb-skeleton.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/rip/Documents/ldd3-examples-3.x-master/usb/usb-skeleton.ko /home/rip/Documents/ldd3-examples-3.x-master/usb/usb-skeleton.o /home/rip/Documents/ldd3-examples-3.x-master/usb/usb-skeleton.mod.o
