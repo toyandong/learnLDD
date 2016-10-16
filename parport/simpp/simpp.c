@@ -120,6 +120,7 @@ static void __exit short_cleanup(void)
 
 module_init(short_init);
 module_exit(short_cleanup);
+MODULE_LICENSE("Dual BSD/GPL");
 
 
 
