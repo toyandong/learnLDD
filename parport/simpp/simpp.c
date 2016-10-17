@@ -60,10 +60,12 @@ ssize_t simpp_write(struct file *filp, const char __user *buf, size_t count,
 {
 	unsigned char *kbuf = kmalloc(count, GFP_KERNEL), *ptr;
 	unsigned long port = short_base;
+	printk("%s(): OK\n", __func__);
 	if (!kbuf)
 		return -ENOMEM;
 	if (copy_from_user(kbuf, buf, count))
 		return -EFAULT;
+	printk("%s(): %s <-- %s\n", __func__, kbuf, buf);
 	ptr = kbuf;
 	
 	while (count--) {
