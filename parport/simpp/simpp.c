@@ -22,7 +22,7 @@
 #include <linux/cdev.h>
 #include <linux/fs.h>
 
-#define MAJOR_NUM 168
+#define MAJOR_NUM 250
 
 struct simpp_cdev_t {
 	unsigned char buffer[50];
@@ -98,15 +98,28 @@ static int __init short_init(void)
 	dev_t dev_num;
 	dev_num = MKDEV(MAJOR_NUM, 0);
 	
-	if (! request_region(short_base, 4, "short")) {
+	if (! request_region(short_base, 8, "simpp")) {
 		printk(KERN_INFO "short: can't get I/O port address 0x%lx\n",
 				short_base);
 		return -ENODEV;
 	}
 	
 	ret = register_chrdev_region(dev_num, 1, "simpp");
+	if(ret < 0) {
+		printk("Fail to register_chrdev_region\n");
+		return -EIO;
+	}
+	
 	cdev_init(&simpp.cdev, &simpp_fops);
 	ret = cdev_add(&simpp.cdev, dev_num, 1);
+	if(ret < 0) {
+		printk("Fail to cdev_add\n");
+		goto unregister_chardev;
+	}
+	printk("register_chrdev_region OK\n");
+	return 0;
+unregister_chardev:
+	unregister_chrdev_region(dev_num, 1);
 	return -1;
 	
 }
