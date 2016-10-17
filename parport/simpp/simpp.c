@@ -37,6 +37,7 @@ ssize_t simpp_read(struct file *filp, char __user *buf, size_t count, loff_t *f_
 	int retval = count;
 	unsigned long port = short_base;
 	unsigned char *kbuf = kmalloc(count, GFP_KERNEL), *ptr;
+	printk("%s(): OK\n", __func__);
     
 	if (!kbuf)
 		return -ENOMEM;
@@ -97,7 +98,7 @@ static int __init short_init(void)
 	int ret;
 	dev_t dev_num;
 	dev_num = MKDEV(MAJOR_NUM, 0);
-	
+	cdev_init(&simpp.cdev, &simpp_fops);
 	if (! request_region(short_base, 8, "simpp")) {
 		printk(KERN_INFO "short: can't get I/O port address 0x%lx\n",
 				short_base);
@@ -110,7 +111,7 @@ static int __init short_init(void)
 		return -EIO;
 	}
 	
-	cdev_init(&simpp.cdev, &simpp_fops);
+
 	ret = cdev_add(&simpp.cdev, dev_num, 1);
 	if(ret < 0) {
 		printk("Fail to cdev_add\n");
