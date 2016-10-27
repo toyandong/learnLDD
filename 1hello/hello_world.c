@@ -4,9 +4,6 @@
 #include <linux/ctype.h>
 #include <linux/smp.h>
 
-
-
-
 MODULE_LICENSE("GPL");
 static int __init hello_world_init(void)
 {
